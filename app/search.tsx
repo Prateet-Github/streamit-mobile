@@ -1,13 +1,24 @@
+import { useThemeColor } from "@/hooks/use-theme-color";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function SearchScreen() {
+  const textColor = useThemeColor({ light: "#000", dark: "#fff" }, "text");
+  const backgroundColor = useThemeColor(
+    { light: "#f0f0f0", dark: "#333" },
+    "background",
+  );
+  const placeholderColor = useThemeColor(
+    { light: "#666", dark: "#aaa" },
+    "text",
+  );
+
   const handleGoBack = () => {
     if (router.canGoBack()) {
       router.back();
     } else {
-      router.replace("/"); 
+      router.replace("/");
     }
   };
 
@@ -16,14 +27,19 @@ export default function SearchScreen() {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={handleGoBack} activeOpacity={0.7}>
-          <Ionicons name="arrow-back" size={26} color="black" />
+          <Ionicons name="arrow-back" size={26} color={textColor} />
         </TouchableOpacity>
 
-        <TextInput
-          style={styles.input}
-          placeholder="Search..."
-          placeholderTextColor="#888"
-        />
+        <View style={[styles.inputWrapper, { backgroundColor }]}>
+          <Ionicons name="search" size={18} color={textColor} />
+
+          <TextInput
+            autoFocus
+            style={[styles.input, { color: textColor }]}
+            placeholder="Search..."
+            placeholderTextColor={placeholderColor}
+          />
+        </View>
       </View>
     </View>
   );
@@ -32,8 +48,7 @@ export default function SearchScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    paddingTop: 50, // space for status bar
+    paddingTop: 50,
   },
 
   header: {
@@ -46,9 +61,16 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     height: 40,
-    backgroundColor: "#f2f2f2",
     borderRadius: 20,
     paddingHorizontal: 15,
     fontSize: 16,
+  },
+  inputWrapper: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    gap: 8,
   },
 });

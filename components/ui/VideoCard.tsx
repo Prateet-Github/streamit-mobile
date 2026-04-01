@@ -1,6 +1,9 @@
+import { useThemeColor } from "@/hooks/use-theme-color";
 import { Image, StyleSheet, Text, View } from "react-native";
 
 export default function VideoCard() {
+  const textColor = useThemeColor({ light: "#000", dark: "#fff" }, "text");
+
   return (
     <View style={styles.card}>
       <Image
@@ -14,10 +17,16 @@ export default function VideoCard() {
         />
 
         <View>
-          <Text style={styles.title}>Sample Video Title</Text>
+          <Text style={[styles.title, { color: textColor }]}>
+            Sample Video Title
+          </Text>
           <View style={styles.channelInfo}>
-            <Text style={styles.channel}>Channel Name</Text>
-            <Text style={styles.views}>1M views • 2 days ago</Text>
+            <Text style={[styles.channel, { color: textColor }]}>
+              Channel Name
+            </Text>
+            <Text style={[styles.views, { color: textColor }]}>
+              1M views • 2 days ago
+            </Text>
           </View>
         </View>
       </View>
@@ -28,14 +37,8 @@ export default function VideoCard() {
 const styles = StyleSheet.create({
   card: {
     marginBottom: 20,
-    backgroundColor: "#fff",
     borderRadius: 0,
     overflow: "hidden",
-    elevation: 2, // for Android shadow
-    shadowColor: "#000", // for iOS shadow
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
   },
   thumbnail: {
     width: "100%",
@@ -53,12 +56,10 @@ const styles = StyleSheet.create({
   },
   channel: {
     fontSize: 14,
-    color: "#555",
     marginBottom: 2,
   },
   views: {
     fontSize: 12,
-    color: "#777",
   },
   channelInfo: {
     flexDirection: "row",

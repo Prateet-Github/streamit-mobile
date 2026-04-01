@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-import { useColorScheme } from "react-native";
+import { Image, useColorScheme } from "react-native";
 
 export default function TabLayout() {
   const isDark = useColorScheme() === "dark";
@@ -35,7 +35,12 @@ export default function TabLayout() {
         options={{
           title: "Upload",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="cloud-upload" size={24} color={color} />
+            <Ionicons
+              name="add"
+              size={24}
+              color={color}
+              style={{ borderRadius: 20, borderColor: "black", borderWidth: 1 }}
+            />
           ),
         }}
       />
@@ -55,7 +60,10 @@ export default function TabLayout() {
         options={{
           title: "Profile",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person" size={24} color={color} />
+            <Image
+              source={require("../../assets/images/pfp.jpg")}
+              style={{ width: 24, height: 24, borderRadius: 12 }}
+            />
           ),
         }}
       />

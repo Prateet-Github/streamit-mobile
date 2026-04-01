@@ -1,18 +1,22 @@
+import { useThemeColor } from "@/hooks/use-theme-color";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function Header() {
+  const textColor = useThemeColor({ light: "#000", dark: "#fff" }, "text");
+
   return (
     <View style={styles.header}>
-      <Text style={styles.title}>StreamIt</Text>
+      <Text style={[styles.title, { color: textColor }]}>StreamIt</Text>
 
-      <View style={{ flexDirection: "row", gap: 16 }}>
+      <View style={styles.icons}>
         <Pressable>
-          <Ionicons name="notifications" size={24} color="black" />
+          <Ionicons name="notifications" size={24} color={textColor} />
         </Pressable>
+
         <Pressable onPress={() => router.push("/search")}>
-          <Ionicons name="search" size={24} color="black" />
+          <Ionicons name="search" size={24} color={textColor} />
         </Pressable>
       </View>
     </View>
@@ -27,10 +31,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 50,
     paddingBottom: 10,
-    backgroundColor: "#fff",
   },
+
   title: {
     fontSize: 20,
     fontWeight: "bold",
+  },
+
+  icons: {
+    flexDirection: "row",
+    gap: 16,
   },
 });
