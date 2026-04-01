@@ -10,24 +10,15 @@ import "react-native-reanimated";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  const isDark = useColorScheme() === "dark";
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={isDark ? DarkTheme : DefaultTheme}>
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(tabs)" />
-
-        <Stack.Screen
-          name="modal"
-          options={{
-            presentation: "modal",
-            headerShown: true,
-            title: "Add Internship",
-          }}
-        />
       </Stack>
 
-      <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
+      <StatusBar style={isDark ? "light" : "dark"} />
     </ThemeProvider>
   );
 }
