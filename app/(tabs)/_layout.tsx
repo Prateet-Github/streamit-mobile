@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { useColorScheme } from "react-native";
@@ -8,10 +9,14 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
+        header: () => <Header />,
         tabBarActiveTintColor: isDark ? "#fff" : "#000",
         tabBarStyle: {
           backgroundColor: isDark ? "#000" : "#fff",
+        },
+        tabBarLabelStyle: {
+          fontSize: 10,
         },
       }}
     >
@@ -20,7 +25,7 @@ export default function TabLayout() {
         options={{
           title: "Home",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" size={size} color={color} />
+            <Ionicons name="home" size={24} color={color} />
           ),
         }}
       />
@@ -30,7 +35,17 @@ export default function TabLayout() {
         options={{
           title: "Upload",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="cloud-upload" size={size} color={color} />
+            <Ionicons name="cloud-upload" size={24} color={color} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="subscriptions"
+        options={{
+          title: "Subscriptions",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="list" size={24} color={color} />
           ),
         }}
       />
@@ -40,7 +55,7 @@ export default function TabLayout() {
         options={{
           title: "Profile",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person" size={size} color={color} />
+            <Ionicons name="person" size={24} color={color} />
           ),
         }}
       />

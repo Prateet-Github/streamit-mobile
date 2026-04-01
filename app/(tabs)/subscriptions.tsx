@@ -1,11 +1,9 @@
 import { Text, View } from "react-native";
 
-export default function HomeScreen() {
+export default function SubscriptionsScreen() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Home Screen</Text>
-
-      {/* Your content here */}
+      <Text>Subscriptions Screen</Text>
     </View>
   );
 }

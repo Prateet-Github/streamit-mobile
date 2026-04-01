@@ -15,7 +15,13 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={isDark ? DarkTheme : DefaultTheme}>
       <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(tabs)" />
+        <Stack.Screen
+          name="search"
+          options={{
+            presentation: "modal",
+            title: "Search",
+          }}
+        />
       </Stack>
 
       <StatusBar style={isDark ? "light" : "dark"} />
