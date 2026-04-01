@@ -3,11 +3,19 @@ import { router } from "expo-router";
 import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function SearchScreen() {
+  const handleGoBack = () => {
+    if (router.canGoBack()) {
+      router.back();
+    } else {
+      router.replace("/"); 
+    }
+  };
+
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity onPress={handleGoBack} activeOpacity={0.7}>
           <Ionicons name="arrow-back" size={26} color="black" />
         </TouchableOpacity>
 

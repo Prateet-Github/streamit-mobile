@@ -8,7 +8,7 @@ export default function Header() {
       <Text style={styles.title}>StreamIt</Text>
 
       <View style={{ flexDirection: "row", gap: 16 }}>
-        <Pressable onPress={() => router.push("/search")}>
+        <Pressable>
           <Ionicons name="notifications" size={24} color="black" />
         </Pressable>
         <Pressable onPress={() => router.push("/search")}>

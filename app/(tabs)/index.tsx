@@ -1,11 +1,14 @@
-import { Text, View } from "react-native";
+import VideoCard from "@/components/ui/VideoCard";
+import { ScrollView } from "react-native";
 
 export default function HomeScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Home Screen</Text>
-
-      {/* Your content here */}
-    </View>
+    <ScrollView style={{ flex: 1 }}>
+      <VideoCard />
+      <VideoCard />
+      <VideoCard />
+      <VideoCard />
+      <VideoCard />
+    </ScrollView>
   );
 }

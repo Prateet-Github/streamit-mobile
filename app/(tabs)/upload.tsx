@@ -1,9 +1,9 @@
 import { Text, View } from "react-native";
 
-export default function ExploreScreen() {
+export default function UploadScreen() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Explore Screen</Text>
+      <Text>Upload Screen</Text>
     </View>
   );
 }
