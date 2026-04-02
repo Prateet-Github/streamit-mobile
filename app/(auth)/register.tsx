@@ -1,51 +1,107 @@
 import { useThemeColor } from "@/hooks/use-theme-color";
+import axios from "axios";
+import { router } from "expo-router";
 import { useState } from "react";
-import { Button, StyleSheet, TextInput, View } from "react-native";
+import { Alert, Button, StyleSheet, TextInput, View } from "react-native";
 
 export default function RegisterScreen() {
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const handleRegister = () => {
-    // TODO: Implement registration logic (e.g., API call)
-  };
+  const [loading, setLoading] = useState(false);
 
   const textColor = useThemeColor({ light: "#000", dark: "#fff" }, "text");
+  const borderColor = useThemeColor({ light: "#ccc", dark: "#555" }, "text");
+  const backgroundColor = useThemeColor(
+    { light: "#fff", dark: "#111" },
+    "background",
+  );
+
+  const handleRegister = async () => {
+    if (!username || !name || !email || !password) {
+      Alert.alert("Error", "Please fill all fields");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const res = await axios.post(
+        `${process.env.EXPO_PUBLIC_BACKEND_URL}/auth/register`,
+        { username, name, email, password },
+      );
+
+      Alert.alert("Success", res.data.message || "Registration successful!");
+
+      router.replace("/login");
+    } catch (error: any) {
+      Alert.alert(
+        "Error",
+        error.response?.data?.message || "Something went wrong",
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor }]}>
       <TextInput
-        style={[styles.input, { color: textColor }]}
+        style={[
+          styles.input,
+          { color: textColor, borderColor, backgroundColor },
+        ]}
         placeholder="Username"
         placeholderTextColor="#888"
         value={username}
         onChangeText={setUsername}
+        autoCapitalize="none"
       />
+
       <TextInput
-        style={[styles.input, { color: textColor }]}
+        style={[
+          styles.input,
+          { color: textColor, borderColor, backgroundColor },
+        ]}
         placeholder="Name"
         placeholderTextColor="#888"
         value={name}
         onChangeText={setName}
       />
+
       <TextInput
-        style={[styles.input, { color: textColor }]}
+        style={[
+          styles.input,
+          { color: textColor, borderColor, backgroundColor },
+        ]}
         placeholder="Email"
         placeholderTextColor="#888"
         value={email}
         onChangeText={setEmail}
+        autoCapitalize="none"
+        keyboardType="email-address"
       />
+
       <TextInput
-        style={[styles.input, { color: textColor }]}
+        style={[
+          styles.input,
+          { color: textColor, borderColor, backgroundColor },
+        ]}
         placeholder="Password"
         placeholderTextColor="#888"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
       />
+
       <View style={styles.button}>
-        <Button title="Register" color="green" onPress={handleRegister} />
+        <Button
+          title={loading ? "Registering..." : "Register"}
+          color="green"
+          onPress={handleRegister}
+          disabled={loading}
+        />
       </View>
     </View>
   );
@@ -54,21 +110,22 @@ export default function RegisterScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
     gap: 20,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 50,
+    paddingHorizontal: 20,
   },
+
   input: {
-    width: "80%",
-    padding: 10,
+    width: "100%",
+    padding: 12,
     borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 5,
+    borderRadius: 8,
+    fontSize: 16,
   },
+
   button: {
-    width: "80%",
-    marginTop: 4,
+    width: "100%",
+    marginTop: 10,
   },
 });
