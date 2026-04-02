@@ -11,9 +11,15 @@ import { ActivityIndicator, View } from "react-native";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/use-color-scheme";
+import { useThemeColor } from "@/hooks/use-theme-color";
 
 export default function RootLayout() {
   const isDark = useColorScheme() === "dark";
+  const backgroundColor = useThemeColor(
+    { light: "#fff", dark: "#000" },
+    "background",
+  );
+  const textColor = useThemeColor({ light: "#000", dark: "#fff" }, "text");
 
   const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
 
@@ -28,8 +34,15 @@ export default function RootLayout() {
 
   if (loggedIn === null) {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" />
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor,
+        }}
+      >
+        <ActivityIndicator size="large" color={textColor} />
       </View>
     );
   }

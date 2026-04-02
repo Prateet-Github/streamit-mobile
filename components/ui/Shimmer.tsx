@@ -1,3 +1,4 @@
+import { useThemeColor } from "@/hooks/use-theme-color";
 import { LinearGradient } from "expo-linear-gradient";
 import { useEffect } from "react";
 import { StyleSheet, View, type DimensionValue } from "react-native";
@@ -17,13 +18,23 @@ type ShimmerProps = {
 export default function Shimmer({
   width,
   height,
-  borderRadius = 10,
+  borderRadius = 0,
 }: ShimmerProps) {
-  const translateX = useSharedValue(-200);
+  const translateX = useSharedValue(-300);
+
+  const baseColor = useThemeColor(
+    { light: "#e0e0e0", dark: "#1f1f1f" },
+    "background",
+  );
+
+  const highlightColor = useThemeColor(
+    { light: "#f5f5f5", dark: "#2c2c2c" },
+    "background",
+  );
 
   useEffect(() => {
     translateX.value = withRepeat(
-      withTiming(200, { duration: 1000 }),
+      withTiming(300, { duration: 1200 }),
       -1,
       false,
     );
@@ -34,13 +45,23 @@ export default function Shimmer({
   }));
 
   return (
-    <View style={[styles.container, { width, height, borderRadius }]}>
+    <View
+      style={[
+        styles.container,
+        {
+          width,
+          height,
+          borderRadius,
+          backgroundColor: baseColor,
+        },
+      ]}
+    >
       <Animated.View style={[styles.shimmer, animatedStyle]}>
         <LinearGradient
-          colors={["#e0e0e0", "#f5f5f5", "#e0e0e0"]}
+          colors={[baseColor, highlightColor, baseColor]}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
-          style={{ flex: 1 }}
+          style={styles.gradient}
         />
       </Animated.View>
     </View>
@@ -49,11 +70,13 @@ export default function Shimmer({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#e0e0e0",
     overflow: "hidden",
   },
   shimmer: {
     width: "100%",
     height: "100%",
+  },
+  gradient: {
+    flex: 1,
   },
 });
