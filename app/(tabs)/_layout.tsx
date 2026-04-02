@@ -39,7 +39,7 @@ export default function TabLayout() {
               name="add"
               size={24}
               color={color}
-              style={{ borderRadius: 20, borderColor: "black", borderWidth: 1 }}
+              style={{ }}
             />
           ),
         }}
