@@ -3,10 +3,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { Pressable, Text, View, ActivityIndicator } from "react-native";
+import { ActivityIndicator, Pressable, Text, View } from "react-native";
 
 export default function ProfileScreen() {
   const textColor = useThemeColor({ light: "#000", dark: "#fff" }, "text");
+  const backgroundColor = useThemeColor(
+    { light: "#fff", dark: "#000" },
+    "background",
+  );
 
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -22,7 +26,7 @@ export default function ProfileScreen() {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          }
+          },
         );
 
         setUser(res.data.user);
@@ -43,17 +47,22 @@ export default function ProfileScreen() {
 
   if (loading) {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator />
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor,
+        }}
+      >
+        <ActivityIndicator color={textColor} />
       </View>
     );
   }
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text style={{ color: textColor, fontSize: 18 }}>
-        Profile Screen
-      </Text>
+      <Text style={{ color: textColor, fontSize: 18 }}>Profile Screen</Text>
 
       {user && (
         <View style={{ marginTop: 20 }}>
