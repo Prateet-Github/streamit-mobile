@@ -14,6 +14,13 @@ export default function ProfileScreen() {
       >
         <Text style={{ color: "green", marginTop: 20 }}>Register</Text>
       </Pressable>
+
+      <Pressable
+        style={{ marginTop: 20 }}
+        onPress={() => router.push("/login")}
+      >
+        <Text style={{ color: "green", marginTop: 20 }}>Login</Text>
+      </Pressable>
     </View>
   );
 }
