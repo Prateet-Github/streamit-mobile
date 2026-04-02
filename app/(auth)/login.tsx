@@ -24,13 +24,13 @@ export default function LoginScreen() {
         { email, password },
       );
 
-      const token = res.data.token;
+      const { token } = res.data;
 
       await AsyncStorage.setItem("token", token);
 
       Alert.alert("Success", "Login successful!");
 
-      router.replace("/(tabs)"); 
+      router.replace("/(tabs)");
     } catch (error: any) {
       console.log("FULL ERROR:", error);
       console.log("RESPONSE:", error?.response);
