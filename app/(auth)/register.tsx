@@ -2,7 +2,7 @@ import { useThemeColor } from "@/hooks/use-theme-color";
 import axios from "axios";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Alert, Button, StyleSheet, TextInput, View } from "react-native";
+import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function RegisterScreen() {
   const [username, setUsername] = useState("");
@@ -14,7 +14,7 @@ export default function RegisterScreen() {
   const textColor = useThemeColor({ light: "#000", dark: "#fff" }, "text");
   const borderColor = useThemeColor({ light: "#ccc", dark: "#555" }, "text");
   const backgroundColor = useThemeColor(
-    { light: "#fff", dark: "#111" },
+    { light: "#fff", dark: "#000" },
     "background",
   );
 
@@ -47,6 +47,7 @@ export default function RegisterScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor }]}>
+      <Text style={{ color: textColor }}>Create an account!</Text>
       <TextInput
         style={[
           styles.input,
@@ -103,6 +104,20 @@ export default function RegisterScreen() {
           disabled={loading}
         />
       </View>
+
+      <Text style={{ color: textColor }}>
+        Already have an account?{" "}
+        <Text
+          style={{
+            color: "green",
+            fontWeight: "bold",
+            textDecorationLine: "underline",
+          }}
+          onPress={() => router.push("/(auth)/login")}
+        >
+          Login
+        </Text>
+      </Text>
     </View>
   );
 }

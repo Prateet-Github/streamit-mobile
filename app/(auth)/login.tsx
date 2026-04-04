@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Alert, Button, StyleSheet, TextInput, View } from "react-native";
+import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -47,6 +47,7 @@ export default function LoginScreen() {
   const textColor = useThemeColor({ light: "#000", dark: "#fff" }, "text");
   return (
     <View style={styles.container}>
+      <Text style={{ color: textColor }}>Welcome back!</Text>
       <TextInput
         style={[styles.input, { color: textColor }]}
         placeholder="Email"
@@ -70,6 +71,20 @@ export default function LoginScreen() {
           disabled={loading}
         />
       </View>
+
+      <Text style={{ color: textColor }}>
+        Already have an account?{" "}
+        <Text
+          style={{
+            color: "green",
+            fontWeight: "bold",
+            textDecorationLine: "underline",
+          }}
+          onPress={() => router.push("/(auth)/register")}
+        >
+          Register
+        </Text>
+      </Text>
     </View>
   );
 }
